@@ -15,19 +15,11 @@ class PositionTest {
     }
 
     @Test
-    @DisplayName("이동 조건 미달이면 위치가 증가하지 않는다")
-    void stayWhenConditionNotMet() {
+    @DisplayName("전진하면 위치가 1 증가한다")
+    void moveForward() {
         Position position = new Position();
-        Position newPosition = position.move(3);
-        assertEquals(0, newPosition.getValue());
-    }
-
-    @Test
-    @DisplayName("이동 조건 충족이면 위치가 증가한다")
-    void moveWhenConditionMet() {
-        Position position = new Position();
-        Position newPosition = position.move(4);
-        assertEquals(1, newPosition.getValue());
+        Position movedPosition = position.move();
+        assertEquals(1, movedPosition.getValue());
     }
 
     @Test
