@@ -50,4 +50,24 @@ class CarTest {
         assertEquals(3, car.getPosition());
     }
 
+    @Test
+    @DisplayName("초기 상태를 문자열로 출력하면 이름 : 으로 표시된다")
+    void displayInitialCarStatus() {
+        Car car = new Car("pobi");
+        assertEquals("pobi : ", car.displayCar());
+    }
+
+    @Test
+    @DisplayName("자동차 상태를 이름 : - 으로 출력할 수 있다")
+    void displayCarStatus() {
+        Car car = new Car("pobi");
+        MoveStrategy movableStrategy = () -> true;
+
+        car.move(movableStrategy);
+        car.move(movableStrategy);
+        car.move(movableStrategy);
+
+        assertEquals("pobi : ---", car.displayCar());
+    }
+
 }
