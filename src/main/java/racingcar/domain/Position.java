@@ -4,6 +4,7 @@ public class Position {
 
     private static final int INITIAL_POSITION = 0;
     private static final int MOVE_DISTANCE = 1;
+    private static final String POSITION_SYMBOL = "-";
     private static final String NEGATIVE_POSITION_MESSAGE = "위치는 음수일 수 없습니다.";
 
     private final int value;
@@ -23,6 +24,10 @@ public class Position {
 
     public int getValue() {
         return value;
+    }
+
+    public String displayPosition() {
+        return POSITION_SYMBOL.repeat(value);
     }
 
     private void validate(int value) {
