@@ -18,6 +18,10 @@ public class Cars {
         return cars.size();
     }
 
+    public List<Car> getCars() {
+        return cars;
+    }
+
     public void moveAll() {
         for (Car car : cars) {
             car.move(new RandomNumberMoveStrategy());
