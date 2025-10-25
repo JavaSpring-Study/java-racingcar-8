@@ -30,4 +30,18 @@ class PositionTest {
         assertEquals(3, movedPosition.getValue());
     }
 
+    @Test
+    @DisplayName("초기 위치를 문자열로 변환하면 빈 문자열이다")
+    void displayInitialPosition() {
+        Position position = new Position();
+        assertEquals("", position.displayPosition());
+    }
+
+    @Test
+    @DisplayName("위치를 문자열로 변환하면 '-'가 위치 값만큼 반복된다")
+    void displayPosition() {
+        Position position = new Position().move().move().move();
+        assertEquals("---", position.displayPosition());
+    }
+
 }
