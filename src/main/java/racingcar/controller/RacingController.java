@@ -27,6 +27,7 @@ public class RacingController {
 			
 		} catch (IllegalArgumentException e) {
 			System.out.println("[ERROR] " + e.getMessage());
+			throw e;
 		}
 	}
 	
