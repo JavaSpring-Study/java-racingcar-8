@@ -23,7 +23,10 @@ public class RacingGame {
 			for (int i = 0; i < attemptCount; i++) {
 				cars.moveAll(); 
 				printRoundResult(outputView);
+				System.out.println(); 
 			}
+			
+			outputView.printWinners(cars.getWinners());
 		}
 		
 		private void printRoundResult(OutputView outputView) {

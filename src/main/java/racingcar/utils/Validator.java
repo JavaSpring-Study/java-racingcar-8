@@ -35,9 +35,9 @@ public class Validator {
 			if(attempt <= 0) {
 				throw new InvalidInputException("시도 횟수는 1 이상이어야 합니다.");
 			}
-			
+			return attempt;
 		} catch (NumberFormatException e) {
-			throw new InvalidInvalidInputException("시도 횟수는 숫자여야 합니다.");
+			throw new InvalidInputException("시도 횟수는 숫자여야 합니다.");
 		}
 	}
 

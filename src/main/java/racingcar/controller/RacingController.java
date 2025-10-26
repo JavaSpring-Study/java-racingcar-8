@@ -18,7 +18,16 @@ public class RacingController {
 	}
 	
 	public void run() {
-		
+		try {
+			List<String> carNames = inputView.readCarNames();
+			int attemptCount = inputView.readAttemptCount();
+			
+			racingGame.initialize(carNames, attemptCount);
+			racingGame.start(outputView);
+			
+		} catch (IllegalArgumentException e) {
+			System.out.println("[ERROR] " + e.getMessage());
+		}
 	}
 	
 }
