@@ -76,9 +76,9 @@
   - [x] 우승자 목록을 반환한다
   - [x] Car 목록의 이름 중복을 검증한다
   
-- [ ] ValueGenerator 인터페이스 
+- [x] ValueGenerator 인터페이스 
   - 랜덤값을 구한다
-  - [ ] 구현체는 Randoms.pickNumberInRange(0,9)를 사용해 0~9의 정수를 반환한다
+  - [x] 구현체는 Randoms.pickNumberInRange(0,9)를 사용해 0~9의 정수를 반환한다
 
 - [ ] RacingGame 클래스
   - 게임 전체 진행을 관리한다
