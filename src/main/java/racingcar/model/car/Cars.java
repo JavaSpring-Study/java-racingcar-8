@@ -48,10 +48,17 @@ public class Cars {
                 .orElse(0);
     }
 
-    public List<Car> getWinners() {
+    public List<String> findWinners() {
         int maxPosition = getMaxPosition();
         return cars.stream()
                 .filter(car -> car.isWinner(maxPosition))
+                .map(Car::getName)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    public List<String> getStatus() {
+        return cars.stream()
+                .map(Car::toString)
                 .collect(Collectors.toUnmodifiableList());
     }
 

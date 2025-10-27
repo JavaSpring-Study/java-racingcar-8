@@ -64,10 +64,9 @@ class CarsTest {
 
         cars.moveAll(moveOnlyPobi);
 
-        List<Car> winners = cars.getWinners();
+        List<String> winners = cars.findWinners();
 
         assertThat(winners)
-                .extracting(Car::getName)
                 .containsExactly("pobi");
     }
 }
