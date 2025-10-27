@@ -5,6 +5,7 @@ import racingcar.model.generator.ValueGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RacingGame {
 
@@ -18,6 +19,9 @@ public class RacingGame {
     }
 
     public static RacingGame of(Cars cars, int attempts) {
+        if (attempts <= 0) {
+            throw new IllegalArgumentException("시도 횟수는 1 이상이어야 합니다.");
+        }
         return new RacingGame(cars, attempts);
     }
 
@@ -29,7 +33,9 @@ public class RacingGame {
     }
 
     public List<List<String>> getRoundResults() {
-        return new ArrayList<>(roundResults);
+        return roundResults.stream()
+                .map(inner -> new ArrayList<>(inner))
+                .collect(Collectors.toList());
     }
 
     public List<String> returnWinners() {
