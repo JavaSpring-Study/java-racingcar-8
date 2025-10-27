@@ -2,7 +2,6 @@ package racingcar.model.car;
 
 import racingcar.model.constant.ExceptionMessages;
 import racingcar.model.generator.ValueGenerator;
-
 import java.util.Objects;
 
 public class Car {
@@ -37,11 +36,11 @@ public class Car {
         return randomValue >= MOVE_THRESHOLD;
     }
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
-    public int getPosition() {
+    public int position() {
         return position;
     }
 

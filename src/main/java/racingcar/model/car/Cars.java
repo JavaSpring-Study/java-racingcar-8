@@ -16,7 +16,7 @@ public class Cars {
         this.cars = cars;
     }
 
-    public static Cars valueOf(List<String> names) {
+    public static Cars of(List<String> names) {
         if (names == null || names.isEmpty()) {
             throw new IllegalArgumentException(ExceptionMessages.INPUT_EMPTY);
         }
@@ -30,7 +30,7 @@ public class Cars {
 
     private void validateDuplicateNames(List<Car> cars) {
         Set<String> uniqueNames = cars.stream()
-                .map(Car::getName)
+                .map(Car::name)
                 .collect(Collectors.toSet());
         if (uniqueNames.size() != cars.size()) {
             throw new IllegalArgumentException(ExceptionMessages.DUPLICATE_NAME);
@@ -41,28 +41,28 @@ public class Cars {
         cars.forEach(car -> car.move(generator));
     }
 
-    public int getMaxPosition() {
+    public int maxPosition() {
         return cars.stream()
-                .mapToInt(Car::getPosition)
+                .mapToInt(Car::position)
                 .max()
                 .orElse(0);
     }
 
     public List<String> findWinners() {
-        int maxPosition = getMaxPosition();
+        int maxPosition = maxPosition();
         return cars.stream()
                 .filter(car -> car.isWinner(maxPosition))
-                .map(Car::getName)
+                .map(Car::name)
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public List<CarStatus> getSnapshots() {
+    public List<CarStatus> snapshots() {
         return cars.stream()
                 .map(Car::snapshot)
                 .collect(Collectors.toList());
     }
 
-    public List<Car> getCars() {
+    public List<Car> cars() {
         return List.copyOf(cars);
     }
 }

@@ -34,15 +34,16 @@ public class GameController {
         String attemptsInput = inputView.readAttemptCount();
         int attempts = validator.validateAttempts(attemptsInput);
 
-        Cars cars = Cars.valueOf(names);
+        Cars cars = Cars.of(names);
         RacingGame game = RacingGame.of(cars, attempts);
 
         outputView.printResultHeader();
 
         for (int i = 0; i < attempts; i++) {
             game.playRound(generator);
-            outputView.printRoundResult(game.getCurrentRoundSnapshots());
+            outputView.printRoundResult(game.currentRoundSnapshots());
         }
-        outputView.printWinners(game.returnWinners());
+
+        outputView.printWinners(game.findWinners());
     }
 }

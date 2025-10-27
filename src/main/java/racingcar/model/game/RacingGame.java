@@ -28,10 +28,10 @@ public class RacingGame {
 
     public void playRound(ValueGenerator generator) {
         cars.moveAll(generator);
-        roundSnapshots.add(cars.getSnapshots());
+        roundSnapshots.add(cars.snapshots());
     }
 
-    public List<CarStatus> getCurrentRoundSnapshots() {
+    public List<CarStatus> currentRoundSnapshots() {
         if (roundSnapshots.isEmpty()) {
             return List.of();
         }
@@ -41,7 +41,7 @@ public class RacingGame {
                 .collect(Collectors.toList());
     }
 
-    public List<List<CarStatus>> getAllRoundSnapshots() {
+    public List<List<CarStatus>> allRoundSnapshots() {
         return roundSnapshots.stream()
                 .map(round -> round.stream()
                         .map(status -> new CarStatus(status.name(), status.position()))
@@ -49,7 +49,7 @@ public class RacingGame {
                 .collect(Collectors.toList());
     }
 
-    public List<String> returnWinners() {
+    public List<String> findWinners() {
         return cars.findWinners();
     }
 }

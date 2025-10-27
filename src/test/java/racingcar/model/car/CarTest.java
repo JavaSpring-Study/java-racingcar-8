@@ -15,7 +15,7 @@ class CarTest {
     void 랜덤값이_4_이상이면_전진한다(int value) {
         Car car = new Car("pobi");
         car.move(() -> value);
-        assertThat(car.getPosition()).isEqualTo(1);
+        assertThat(car.position()).isEqualTo(1);
     }
 
     @ParameterizedTest
@@ -23,7 +23,7 @@ class CarTest {
     void 랜덤값이_4_미만이면_이동하지_않는다(int value) {
         Car car = new Car("pobi");
         car.move(() -> value);
-        assertThat(car.getPosition()).isZero();
+        assertThat(car.position()).isZero();
     }
 
     @ParameterizedTest
