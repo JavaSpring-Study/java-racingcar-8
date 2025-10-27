@@ -8,11 +8,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class CarTest {
+class CarTest {
 
     @ParameterizedTest
     @ValueSource(ints = {4, 5, 6, 9})
-    void 값이_4이상이면_전진한다(int value) {
+    void 랜덤값이_4_이상이면_전진한다(int value) {
         Car car = new Car("pobi");
         car.move(() -> value);
         assertThat(car.getPosition()).isEqualTo(1);
@@ -20,10 +20,10 @@ public class CarTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3})
-    void 값이_4미만이면_이동하지_않는다(int value) {
+    void 랜덤값이_4_미만이면_이동하지_않는다(int value) {
         Car car = new Car("pobi");
         car.move(() -> value);
-        assertThat(car.getPosition()).isEqualTo(0);
+        assertThat(car.getPosition()).isZero();
     }
 
     @ParameterizedTest
