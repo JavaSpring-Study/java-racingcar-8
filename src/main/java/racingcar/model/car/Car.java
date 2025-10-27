@@ -49,8 +49,7 @@ public class Car {
         return this.position == maxPosition;
     }
 
-    @Override
-    public String toString() {
-        return name + " : " + "-".repeat(position);
+    public CarStatus snapshot() {
+        return new CarStatus(name, position);
     }
 }

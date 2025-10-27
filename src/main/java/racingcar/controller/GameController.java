@@ -38,8 +38,11 @@ public class GameController {
         RacingGame game = RacingGame.of(cars, attempts);
 
         outputView.printResultHeader();
-        game.play(generator);
-        outputView.printRoundResult(game.getRoundResults());
+
+        for (int i = 0; i < attempts; i++) {
+            game.playRound(generator);
+            outputView.printRoundResult(game.getCurrentRoundSnapshots());
+        }
         outputView.printWinners(game.returnWinners());
     }
 }

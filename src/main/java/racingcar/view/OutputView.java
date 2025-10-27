@@ -1,5 +1,7 @@
 package racingcar.view;
 
+import racingcar.model.car.CarStatus;
+
 import java.util.List;
 
 public class OutputView {
@@ -11,11 +13,11 @@ public class OutputView {
         System.out.println(RESULT_HEADER);
     }
 
-    public void printRoundResult(List<List<String>> roundResults) {
-        for (List<String> round : roundResults) {
-            round.forEach(System.out::println);
-            System.out.println(); // 라운드 구분용 공백 줄
+    public void printRoundResult(List<CarStatus> snapshots) {
+        for (CarStatus status : snapshots) {
+            System.out.println(status.name() + " : " + "-".repeat(status.position()));
         }
+        System.out.println();
     }
 
     public void printWinners(List<String> winners) {

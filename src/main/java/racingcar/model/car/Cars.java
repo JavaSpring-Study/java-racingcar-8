@@ -56,10 +56,10 @@ public class Cars {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public List<String> getStatus() {
+    public List<CarStatus> getSnapshots() {
         return cars.stream()
-                .map(Car::toString)
-                .collect(Collectors.toUnmodifiableList());
+                .map(Car::snapshot)
+                .collect(Collectors.toList());
     }
 
     public List<Car> getCars() {
