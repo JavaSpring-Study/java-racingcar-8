@@ -1,6 +1,7 @@
 package racingcar.model.game;
 
 import org.junit.jupiter.api.Test;
+import racingcar.model.car.CarStatus;
 import racingcar.model.car.Cars;
 
 import java.util.List;
@@ -14,12 +15,12 @@ class RacingGameTest {
     void 주어진_횟수만큼_경주를_진행한다() {
         Cars cars = Cars.valueOf(List.of("pobi", "woni"));
         RacingGame game = RacingGame.of(cars, 3);
-
-        game.play(() -> 5);
-        List<List<String>> results = game.getRoundResults();
-
+        for (int i = 0; i < 3; i++) {
+            game.playRound(() -> 5);
+        }
+        List<List<CarStatus>> results = game.getAllRoundSnapshots();
         assertThat(results).hasSize(3);
-        assertThat(results.get(2).get(0)).contains("-");
+        assertThat(results.get(2).get(0).position()).isGreaterThanOrEqualTo(1);
     }
 
     @Test
@@ -41,21 +42,23 @@ class RacingGameTest {
         Cars cars = Cars.valueOf(List.of("pobi"));
         RacingGame game = RacingGame.of(cars, 1);
 
-        game.play(() -> 9);
+        game.playRound(() -> 9);
 
-        List<List<String>> firstCall = game.getRoundResults();
-        List<List<String>> secondCall = game.getRoundResults();
+        List<List<CarStatus>> firstCall = game.getAllRoundSnapshots();
+        List<List<CarStatus>> secondCall = game.getAllRoundSnapshots();
 
         assertThat(firstCall).isNotSameAs(secondCall);
-
         assertThat(firstCall.get(0)).isNotSameAs(secondCall.get(0));
+        assertThat(firstCall.get(0).get(0))
+                .usingRecursiveComparison()
+                .isEqualTo(secondCall.get(0).get(0)); // 값은 동일해야 함
     }
 
     @Test
     void 최종_우승자를_반환한다() {
         Cars cars = Cars.valueOf(List.of("pobi", "woni"));
         RacingGame game = RacingGame.of(cars, 1);
-        game.play(() -> 9);
+        game.playRound(() -> 9);
         List<String> winners = game.returnWinners();
         assertThat(winners).containsExactlyInAnyOrder("pobi", "woni");
     }
