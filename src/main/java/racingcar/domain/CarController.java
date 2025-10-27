@@ -6,7 +6,7 @@ public class CarController {
 
 	public void run() {
 		Input input = new Input();
-		String carname = input.readCardNameInput();
+		String carname = input.readCarNameInput();
 		Integer count = input.readCount();
 	}
 }
