@@ -26,12 +26,22 @@ class CarsTest {
     }
 
     @Test
+    void 빈_리스트면_예외() {
+        assertThatThrownBy(() -> Cars.valueOf(List.of()))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void null_입력이면_예외() {
+        assertThatThrownBy(() -> Cars.valueOf(null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void 모든_자동차가_한번씩_전진한다() {
         Cars cars = Cars.valueOf(names);
-
         ValueGenerator alwaysMove = () -> 9;
         cars.moveAll(alwaysMove);
-
         assertThat(cars.getCars())
                 .extracting(Car::getPosition)
                 .containsExactly(1, 1, 1);
@@ -40,7 +50,6 @@ class CarsTest {
     @Test
     void 최대_이동_거리를_반환한다() {
         Cars cars = Cars.valueOf(names);
-
         ValueGenerator generator = () -> 9;
         cars.moveAll(generator); // 모두 한 번 전진
         cars.moveAll(generator); // 두 번 전진
@@ -49,23 +58,25 @@ class CarsTest {
     }
 
     @Test
+    void 공동_우승자가_존재할_수_있다() {
+        Cars cars = Cars.valueOf(List.of("pobi", "woni"));
+        cars.moveAll(() -> 9);
+        List<String> winners = cars.findWinners();
+        assertThat(winners).containsExactlyInAnyOrder("pobi", "woni");
+    }
+
+    @Test
     void 가장_먼_위치의_자동차가_우승자이다() {
         Cars cars = Cars.valueOf(names);
-
-        // pobi만 이동
         ValueGenerator moveOnlyPobi = new ValueGenerator() {
             private int count = 0;
-
             @Override
             public int getValue() {
                 return count++ == 0 ? 9 : 0;
             }
         };
-
         cars.moveAll(moveOnlyPobi);
-
         List<String> winners = cars.findWinners();
-
         assertThat(winners)
                 .containsExactly("pobi");
     }
