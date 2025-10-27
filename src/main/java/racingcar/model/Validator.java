@@ -7,10 +7,10 @@ import java.util.Set;
 
 public class Validator {
 
-    private Validator() {
+    public Validator() {
     }
 
-    public static void validateNames(List<String> names) {
+    public void validateNames(List<String> names) {
         if (names == null || names.isEmpty()) {
             throw new IllegalArgumentException(ExceptionMessages.INPUT_EMPTY);
         }
@@ -30,7 +30,7 @@ public class Validator {
         }
     }
 
-    public static int validateAttempts(String input) {
+    public int validateAttempts(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException(ExceptionMessages.INPUT_EMPTY);
         }
