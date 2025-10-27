@@ -1,0 +1,73 @@
+package racingcar.model.car;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import racingcar.model.generator.ValueGenerator;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+class CarsTest {
+
+    private List<String> names;
+
+    @BeforeEach
+    void setUp() {
+        names = List.of("pobi", "woni", "jun");
+    }
+
+    @Test
+    void 중복된_이름이_있으면_예외() {
+        List<String> duplicateNames = List.of("pobi", "pobi");
+        assertThatThrownBy(() -> Cars.valueOf(duplicateNames))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 모든_자동차가_한번씩_전진한다() {
+        Cars cars = Cars.valueOf(names);
+
+        ValueGenerator alwaysMove = () -> 9;
+        cars.moveAll(alwaysMove);
+
+        assertThat(cars.getCars())
+                .extracting(Car::getPosition)
+                .containsExactly(1, 1, 1);
+    }
+
+    @Test
+    void 최대_이동_거리를_반환한다() {
+        Cars cars = Cars.valueOf(names);
+
+        ValueGenerator generator = () -> 9;
+        cars.moveAll(generator); // 모두 한 번 전진
+        cars.moveAll(generator); // 두 번 전진
+
+        assertThat(cars.getMaxPosition()).isEqualTo(2);
+    }
+
+    @Test
+    void 가장_먼_위치의_자동차가_우승자이다() {
+        Cars cars = Cars.valueOf(names);
+
+        // pobi만 이동
+        ValueGenerator moveOnlyPobi = new ValueGenerator() {
+            private int count = 0;
+
+            @Override
+            public int getValue() {
+                return count++ == 0 ? 9 : 0;
+            }
+        };
+
+        cars.moveAll(moveOnlyPobi);
+
+        List<Car> winners = cars.getWinners();
+
+        assertThat(winners)
+                .extracting(Car::getName)
+                .containsExactly("pobi");
+    }
+}
