@@ -2,7 +2,9 @@ package racingcar.model.game;
 
 import racingcar.model.car.CarStatus;
 import racingcar.model.car.Cars;
+import racingcar.model.constant.ExceptionMessages;
 import racingcar.model.generator.ValueGenerator;
+import racingcar.model.vo.RoundLimit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,24 +13,26 @@ import java.util.stream.Collectors;
 public class RacingGame {
 
     private final Cars cars;
-    private final int attempts;
+    private final RoundLimit roundLimit;
     private final List<List<CarStatus>> roundSnapshots = new ArrayList<>();
+    private int currentRound = 0;
 
-    private RacingGame(Cars cars, int attempts) {
+    private RacingGame(Cars cars, RoundLimit roundLimit) {
         this.cars = cars;
-        this.attempts = attempts;
+        this.roundLimit = roundLimit;
     }
 
-    public static RacingGame of(Cars cars, int attempts) {
-        if (attempts <= 0) {
-            throw new IllegalArgumentException("시도 횟수는 1 이상이어야 합니다.");
-        }
-        return new RacingGame(cars, attempts);
+    public static RacingGame of(Cars cars, RoundLimit roundLimit) {
+        return new RacingGame(cars, roundLimit);
     }
 
     public void playRound(ValueGenerator generator) {
+        if (!roundLimit.hasRemaining(currentRound)) {
+            throw new IllegalStateException(ExceptionMessages.EXCEEDED_ROUND_LIMIT.get());
+        }
         cars.moveAll(generator);
         roundSnapshots.add(cars.snapshots());
+        currentRound++;
     }
 
     public List<CarStatus> currentRoundSnapshots() {

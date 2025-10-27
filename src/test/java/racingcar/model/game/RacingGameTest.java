@@ -3,6 +3,7 @@ package racingcar.model.game;
 import org.junit.jupiter.api.Test;
 import racingcar.model.car.CarStatus;
 import racingcar.model.car.Cars;
+import racingcar.model.vo.RoundLimit;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ class RacingGameTest {
     @Test
     void 주어진_횟수만큼_경주를_진행한다() {
         Cars cars = Cars.of(List.of("pobi", "woni"));
-        RacingGame game = RacingGame.of(cars, 3);
+        RacingGame game = RacingGame.of(cars, RoundLimit.of("3"));
         for (int i = 0; i < 3; i++) {
             game.playRound(() -> 5);
         }
@@ -25,22 +26,20 @@ class RacingGameTest {
 
     @Test
     void 시도_횟수가_0이면_예외() {
-        Cars cars = Cars.of(List.of("pobi"));
-        assertThatThrownBy(() -> RacingGame.of(cars, 0))
+        assertThatThrownBy(() -> RoundLimit.of("0"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void 시도_횟수가_음수면_예외() {
-        Cars cars = Cars.of(List.of("pobi"));
-        assertThatThrownBy(() -> RacingGame.of(cars, -1))
+        assertThatThrownBy(() -> RoundLimit.of("-1"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void 라운드_결과는_깊은_복사이다() {
         Cars cars = Cars.of(List.of("pobi"));
-        RacingGame game = RacingGame.of(cars, 1);
+        RacingGame game = RacingGame.of(cars, RoundLimit.of("1"));
 
         game.playRound(() -> 9);
 
@@ -57,7 +56,7 @@ class RacingGameTest {
     @Test
     void 최종_우승자를_반환한다() {
         Cars cars = Cars.of(List.of("pobi", "woni"));
-        RacingGame game = RacingGame.of(cars, 1);
+        RacingGame game = RacingGame.of(cars, RoundLimit.of("1"));
         game.playRound(() -> 9);
         List<String> winners = game.findWinners();
         assertThat(winners).containsExactlyInAnyOrder("pobi", "woni");

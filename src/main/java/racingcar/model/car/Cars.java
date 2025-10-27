@@ -18,7 +18,7 @@ public class Cars {
 
     public static Cars of(List<String> names) {
         if (names == null || names.isEmpty()) {
-            throw new IllegalArgumentException(ExceptionMessages.INPUT_EMPTY);
+            throw new IllegalArgumentException("자동차 이름 목록이 비어 있습니다.");
         }
 
         List<Car> carList = names.stream()
@@ -33,7 +33,7 @@ public class Cars {
                 .map(Car::name)
                 .collect(Collectors.toSet());
         if (uniqueNames.size() != cars.size()) {
-            throw new IllegalArgumentException(ExceptionMessages.DUPLICATE_NAME);
+            throw new IllegalArgumentException(ExceptionMessages.DUPLICATE_NAME.get());
         }
     }
 

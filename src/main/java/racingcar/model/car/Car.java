@@ -1,54 +1,36 @@
 package racingcar.model.car;
 
-import racingcar.model.constant.ExceptionMessages;
 import racingcar.model.generator.ValueGenerator;
-import java.util.Objects;
+import racingcar.model.vo.CarName;
+import racingcar.model.vo.Position;
 
 public class Car {
 
-    private static final int MOVE_THRESHOLD = 4;
-    private static final int INITIAL_POSITION = 0;
-
-    private final String name;
-    private int position = INITIAL_POSITION;
+    private final CarName name;
+    private final Position position;
 
     public Car(String name) {
-        validateName(name);
-        this.name = name;
-    }
-
-    private void validateName(String name) {
-        if (Objects.isNull(name) || name.isBlank()) {
-            throw new IllegalArgumentException(ExceptionMessages.INVALID_NAME_EMPTY);
-        }
-        if (name.length() > 5) {
-            throw new IllegalArgumentException(ExceptionMessages.INVALID_NAME_LENGTH);
-        }
+        this.name = new CarName(name);
+        this.position = new Position();
     }
 
     public void move(ValueGenerator generator) {
-        if (isMovable(generator.getValue())) {
-            position++;
-        }
-    }
-
-    private boolean isMovable(int randomValue) {
-        return randomValue >= MOVE_THRESHOLD;
+        position.move(generator.getValue());
     }
 
     public String name() {
-        return name;
+        return name.value();
     }
 
     public int position() {
-        return position;
+        return position.value();
     }
 
     public boolean isWinner(int maxPosition) {
-        return this.position == maxPosition;
+        return position.value() == maxPosition;
     }
 
     public CarStatus snapshot() {
-        return new CarStatus(name, position);
+        return new CarStatus(name.value(), position.value());
     }
 }
