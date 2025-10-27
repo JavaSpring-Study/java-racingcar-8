@@ -14,7 +14,9 @@ public final class ErrorMessage {
 	//시도 횟수 입출력 관련
 	public static final String DO_NOT_ENTER_COUNT = "시도 횟수를 입력하지 않았습니다";
 	public static final String ENTERED_NON_NUMERIC_VALUE = "숫자가 아닌 값이 포함되어 있습니다";
-	public final static String NEGATIVE_NUMBER_NOT_ALLOWED = "음수는 입력할 수 없습니다";
+	public static final String NEGATIVE_NUMBER_NOT_ALLOWED = "음수는 입력할 수 없습니다";
 
+	//우승자 관련
+	public static final String NO_WINNER = "우승자가 존재하지 않습니다";
 
 }
