@@ -1,17 +1,47 @@
 package racingcar.view;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import camp.nextstep.edu.missionutils.Console;
 import racingcar.message.ErrorMessage;
 import racingcar.message.SuccessMessage;
 
 public class Input {
 
-	public String readCarNameInput() {
+	//자동차 이름 입력
+	public List<String> readCarNameInput() {
 		System.out.println(SuccessMessage.INPUT_CAR_NAME_MESSAGE);
 		String inputCarName = Console.readLine();
-		return validateCarNameInput(inputCarName);
+
+		//구분자가 , 가 아닌 경우
+		if (inputCarName.contains(";") || inputCarName.contains("|") || inputCarName.contains(" ")) {
+			throw new IllegalArgumentException(ErrorMessage.WRONG_SEPARATOR_ERROR);
+		}
+
+		// , 기준으로 carNames 분리
+		List<String> carNames = Arrays.stream(inputCarName.split(","))
+			.map(String::trim)
+			.map(this::validateCarNameInput) // 각 이름 재검증
+			.toList();
+
+		Set<String> uniqueCarNames = new HashSet<>();
+
+		// 자동차 이름이 중복이거나 5자리 이상인경우의 예외처리
+		for(String carName : carNames) {
+			if(carName.trim().length() > 5) {
+				throw new IllegalArgumentException(ErrorMessage.ENTER_MORE_FIVE_DIGITS);
+			}
+			if(!uniqueCarNames.add(carName)) {
+				throw new IllegalArgumentException(ErrorMessage.DUPLICATE_CAR_NAME);
+			}
+		}
+		return carNames;
 	}
 
+	//자동차 이름 입력 검증
 	public String validateCarNameInput(String inputCarName) {
 		// 입력하지 않은 경우
 		if (inputCarName == null || inputCarName.isBlank()) {
