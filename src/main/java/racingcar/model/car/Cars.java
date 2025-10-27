@@ -18,7 +18,7 @@ public class Cars {
 
     public static Cars of(List<String> names) {
         if (names == null || names.isEmpty()) {
-            throw new IllegalArgumentException("자동차 이름 목록이 비어 있습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INPUT_EMPTY.get());
         }
 
         List<Car> carList = names.stream()

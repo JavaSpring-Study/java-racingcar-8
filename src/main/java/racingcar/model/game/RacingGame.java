@@ -15,7 +15,6 @@ public class RacingGame {
     private final Cars cars;
     private final RoundLimit roundLimit;
     private final List<List<CarStatus>> roundSnapshots = new ArrayList<>();
-    private int currentRound = 0;
 
     private RacingGame(Cars cars, RoundLimit roundLimit) {
         this.cars = cars;
@@ -27,12 +26,11 @@ public class RacingGame {
     }
 
     public void playRound(ValueGenerator generator) {
-        if (!roundLimit.hasRemaining(currentRound)) {
+        if (!roundLimit.hasRemaining(roundSnapshots.size())) {
             throw new IllegalStateException(ExceptionMessages.EXCEEDED_ROUND_LIMIT.get());
         }
         cars.moveAll(generator);
         roundSnapshots.add(cars.snapshots());
-        currentRound++;
     }
 
     public List<CarStatus> currentRoundSnapshots() {

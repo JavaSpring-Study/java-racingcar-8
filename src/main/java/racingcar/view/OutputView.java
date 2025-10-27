@@ -23,8 +23,4 @@ public class OutputView {
     public void printWinners(List<String> winners) {
         System.out.println(WINNER_ANNOUNCEMENT + String.join(", ", winners));
     }
-
-    public void printErrorMessage(String message) {
-        System.out.println("[ERROR] " + message);
-    }
 }
