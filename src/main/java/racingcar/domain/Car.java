@@ -1,0 +1,31 @@
+package racingcar.domain;
+
+public class Car {
+
+	private final String name;
+	private int distance;
+
+	public Car(String name) {
+		this.name = name;
+		this.distance = 0;
+	}
+
+	public void move(int randomNumber) {
+		if (randomNumber >= 4) {
+			distance++;
+		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getDistance() {
+		return distance;
+	}
+
+	@Override
+	public String toString() {
+		return name + " : " + "-".repeat(distance);
+	}
+}
